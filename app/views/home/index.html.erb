@@ -96,8 +96,14 @@
                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
                     style="z-index: 7; white-space: nowrap;text-transform:left;">
                       <div class="slider-content">
-                          <h2><%= Post.all.last.company_name %></h2>
-                            <div class="text"><%= Post.all.last.company_description.truncate_words(20) %></div>
+                      <% if Post.all.any? %>
+                      <h2><%= Post.all.last.company_name %></h2>
+                      <div class="text">
+                        <%= Post.all.last.company_description %>
+                      </div>
+                    <% else %>
+                      <h2>No hay publicaciones disponibles.</h2>
+                    <% end %>                    
                             <a href="/blog" class="theme-btn btn-style-two">Ir a Blog</a>
                         </div>
                     </div>
@@ -216,16 +222,46 @@
                                                     <div class="news-block-two">
                                                         <div class="inner-box">
                                                             <div class="image">
-                                                                <a href="/publicacion/<%= Post.all.last.company_name.gsub(' ','-') %>"><img src="<%= Post.all.last.picture.url %>" alt="" /></a>
-                                                                <div class="category"><a href="#"><%= Category.find(Post.all.last.category_id).name %></a></div>
+                                                            <% if Post.any? %>
+                                                            <% last_post = Post.last %>
+                                                            <a href="/publicacion/<%= last_post.company_name.gsub(' ', '-') %>">
+                                                              <img src="<%= last_post.picture.url if last_post.picture %>" alt="Imagen de <%= last_post.company_name %>" />
+                                                            </a>
+                                                            <div class="categoría">
+                                                              <a href="#"><%= Categoria.find(last_post.category_id).name if last_post.category_id %></a>
+                                                            </div>
+                                                          <% else %>
+                                                            <p>No hay publicaciones disponibles.</p>
+                                                          <% end %>
+                                                          
                                                             </div>
                                                             <div class="lower-box">
-                                                                <h3><a href="/publicacion/<%= Post.all.last.company_name.gsub(' ','-') %>"><%= Post.all.last.company_name %></a></h3>
-                                                                <ul class="post-meta">
-                                                                    <li><span class="icon fa fa-clock-o"></span><%= Post.all.last.created_at.strftime("%d/%m/%y") %>, por <%= Columnist.find(Post.all.last.columnist_id).full_name %></li>
-                                                               
-                                                                </ul>
-                                                                <div class="text"><%= Post.all.last.company_description.truncate_words(20) %></div>
+                                                            <% if Post.any? %>
+                                                            <% last_post = Post.last %>
+                                                            <h3><%= last_post.company_name %></h3>
+                                                            <ul class="post-meta">
+                                                              <li>
+                                                                <span class="icon fa fa-clock-o"></span>
+                                                                <%= last_post.created_at.strftime("%d/%m/%Y") %>, por 
+                                                                <% if last_post.columnist_id.present? %>
+                                                                  <%= Columnist.find(last_post.columnist_id).full_name %>
+                                                                <% else %>
+                                                                  Desconocido
+                                                                <% end %>
+                                                              </li>
+                                                            </ul>
+                                                          <% else %>
+                                                            <p>No hay publicaciones disponibles.</p>
+                                                          <% end %>
+                                                                <% if Post.any? %>
+  <% last_post = Post.last %>
+  <div class="text">
+    <%= truncate(last_post.company_description, length: 100) if last_post.company_description.present? %>
+  </div>
+<% else %>
+  <p>No hay publicaciones disponibles.</p>
+<% end %>
+
                                                                 
                                                             </div>
                                                         </div>
@@ -237,7 +273,20 @@
                                             </div>
                                             <div class="column col-md-6 col-sm-6 col-xs-12">
                                            <% @latest_post = Post.all.last %>
-                                          <% @posts = Post.where.not(id: @latest_post.id).order('created_at DESC') %>
+                                          <% if Post.any? %>
+  <% @latest_post = Post.last %>
+  <% @posts = Post.where.not(id: @latest_post.id).order('created_at DESC') %>
+
+  <% @posts.each do |post| %>
+    <article class="widget-post">
+      <h4><%= post.company_name %></h4>
+      <p><%= truncate(post.company_description, length: 100) %></p>
+    </article>
+  <% end %>
+<% else %>
+  <p>No hay publicaciones disponibles.</p>
+<% end %>
+
                                                <% @posts.each do |post| %>
                                                 <!--Widget Post-->
                                                 <article class="widget-post">
