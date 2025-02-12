@@ -70,7 +70,7 @@
                     <!--Top Left-->
                     <div class="top-left col-md-4 col-sm-12 col-xs-12">
                       <ul class="clearfix">
-                          <li>Bienvenido a: Mi Gran Empresa</li>
+                          <li>Bienvenido a: BB Connect</li>
                         </ul>
                     </div>
                     <!--Top Right-->
@@ -86,188 +86,77 @@
             </div>
         </div>
         
-      <!--Header-Upper-->
+        <!--Header-Upper-->
         <div class="header-upper">
-          <div class="auto-container">
-        <div class="logo-outer">
-                    <div class="logo"><a href="/"><img src="/landing/images/logo_transparent.png" alt="" style="width: 226px;height:80px;" /></a></div>
-                </div>
-      </div>
-        </div>
-        <!--End Header Upper-->
+            <div class="auto-container">
+                <div class="header-flex" style="display: flex; align-items: center; justify-content: space-between;">
+                    
+                    <!-- Logo -->
+                    <div class="logo" style="flex: 1;">
+                        <a href="/" style="display: block;">
+                            <img src="/logo_transparent.png" alt="Logo" style="width: 300px; height: 100px;" />
+                        </a>
+                    </div>
         
-        <!--Header Lower-->
-        <div class="header-lower">
-          <div class="auto-container">
-              <div class="nav-outer clearfix">
-                    <!-- Main Menu -->
-                    <nav class="main-menu">
-                        <div class="navbar-header">
-                            <!-- Toggle Button -->      
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            </button>
-                        </div>
-
-                        <div class="navbar-collapse collapse clearfix" id="bs-example-navbar-collapse-1">
-                            <ul class="navigation clearfix">
-                                <% if request.path == "/" %>
-                                     <li class="current"><a href="/">Home</a></li>
-                                <% else %>
-                                     <li class=""><a href="/">Home</a></li>   
-                                <% end %>
-                               
-                                 <% if request.path == "/blog" %>
-                                     <li class="current"><a href="/blog">Publicaciones</a></li>
-                                <% else %>
-                                     <li class=""><a href="/blog">Publicaciones</a></li>   
-                                <% end %>
-                          
-
-                                 <% if request.path == "/columnistas" %>
-                                     <li class="current dropdown" ><a href="/columnistas">Columnistas</a>
-                                      <ul>
+                    <!-- Menú de Navegación (Alineado) -->
+                    <nav class="main-menu" style="flex: 2;">
+                        <div class="navbar-collapse collapse clearfix">
+                            <ul class="navigation clearfix" style="display: flex; gap: 20px; align-items: center;">
+                                <li class="<%= 'current' if request.path == '/' %>"><a href="/">Home</a></li>
+                                <li class="<%= 'current' if request.path == '/blog' %>"><a href="/blog">Publicaciones</a></li>
+                                <li class="<%= 'current' if request.path == '/columnistas' %>">
+                                    <a href="/columnistas">Columnistas</a>
+                                    <ul>
                                         <% Columnist.all.reverse.each do |columnist| %>
-                                        <li><a href="/columnista/<%= columnist.full_name.gsub(' ','-') %>"><%= columnist.full_name %></a></li>
+                                            <li><a href="/columnista/<%= columnist.full_name.gsub(' ','-') %>"><%= columnist.full_name %></a></li>
                                         <% end %>
-                                       </ul>
-                                      </li>
-                                <% else %>
-                                     <li class="dropdown"><a href="/columnistas">Columnistas</a>
-                                     <ul>
-                                        <% Columnist.all.reverse.each do |columnist| %>
-                                        <li><a href="/columnista/<%= columnist.full_name.gsub(' ','-') %>"><%= columnist.full_name %></a></li>
-                                        <% end %>
-                                    </ul></li>   
-                                <% end %>
-                                <% if request.path == "/comunity" %>
-                                <li class="current"><a href="/comunity">Comunidad</a></li>
-                           <% else %>
-                                <li class=""><a href="/comunity">Comunidad</a></li>   
-                           <% end %>
-
-
-                                <% if request.path == "/contacto" %>
-                                     <li class="current"><a href="/contacto">Contacto</a></li>
-                                <% else %>
-                                     <li class=""><a href="/contacto">Contacto</a></li>   
-                                <% end %>
-                 
-                  
+                                    </ul>
+                                </li>
+                                <li class="<%= 'current' if request.path == '/comunity' %>"><a href="/comunity">Comunidad</a></li>
+                                <li class="<%= 'current' if request.path == '/contacto' %>"><a href="/contacto">Contacto</a></li>
                             </ul>
                         </div>
                     </nav>
-                    <!-- Main Menu End-->
-                  <div class="outer-box">
-                        
-                        <!--Cart Box-->
-             
-                        <!--Search Box-->
-                        <div class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
-                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu1">
-                                    <li class="panel-outer">
-                                        <div class="form-container">
-                                            <form method="get" action="/search">
-                                                <div class="form-group">
-                                                    <input type="search" name="search_text" value="<%= params[:search_text] %>" placeholder="Busca aquí" required="">
-                                                    <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <!-- Hidden Nav Toggler -->
-                     <div class="nav-toggler">
-                         <button class="hidden-bar-opener"><span class="icon qb-menu1"></span></button>
-                     </div>
-                    
                 </div>
-                 
             </div>
         </div>
-        <!--End Header Lower-->
+        <!--End Header Upper-->        
+     
+        
     
-      <!--Sticky Header-->
+        <!-- Sticky Header -->
         <div class="sticky-header">
             <div class="auto-container clearfix">
-                <!--Logo-->
+                <!-- Logo -->
                 <div class="logo pull-left">
-                    <a href="/" title=""><img src="/landing/images/logo-small_new.png" alt="" /></a>
+                    <a href="/" title="">
+                        <img src="/logo_transparent.png" alt="Logo" style="width: 250px; height: auto;" />
+                    </a>
                 </div>
-                
-                <!--Right Col-->
-                <div class="right-col pull-right">
-                    <!-- Main Menu -->
-                    <nav class="main-menu">
-                        <div class="navbar-header">
-                            <!-- Toggle Button -->      
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            </button>
-                        </div>
-                        
-                        <div class="navbar-collapse collapse clearfix">
-                            <ul class="navigation clearfix">
-                               <% if request.path == "/" %>
-                                     <li class="current"><a href="/">Home</a></li>
-                                <% else %>
-                                     <li class=""><a href="/">Home</a></li>   
-                                <% end %>
-                              
-                                
-                                 <% if request.path == "/blog" %>
-                                     <li class="current"><a href="/blog">Publicaciones</a></li>
-                                <% else %>
-                                     <li class=""><a href="/blog">Publicaciones</a></li>   
-                                <% end %>
-                                
-                                <% if request.path == "/columnistas" %>
-                                     <li class="current dropdown" ><a href="/columnistas">Columnistas</a>
-                                      <ul>
-                                        <% Columnist.all.reverse.each do |columnist| %>
+        
+                <!-- Menú de Navegación -->
+                <nav class="main-menu pull-right">
+                    <div class="navbar-collapse collapse clearfix">
+                        <ul class="navigation clearfix" style="display: flex; gap: 50px; align-items: center;">
+                            <li class="<%= 'current' if request.path == '/' %>"><a href="/">Home</a></li>
+                            <li class="<%= 'current' if request.path == '/blog' %>"><a href="/blog">Publicaciones</a></li>
+                            <li class="<%= 'current' if request.path == '/columnistas' %>">
+                                <a href="/columnistas">Columnistas</a>
+                                <ul>
+                                    <% Columnist.all.reverse.each do |columnist| %>
                                         <li><a href="/columnista/<%= columnist.full_name.gsub(' ','-') %>"><%= columnist.full_name %></a></li>
-                                        <% end %>
-                                       </ul>
-                                      </li>
-                                <% else %>
-                                     <li class="dropdown"><a href="/columnistas">Columnistas</a>
-                                     <ul>
-                                        <% Columnist.all.reverse.each do |columnist| %>
-                                        <li><a href="/columnista/<%= columnist.full_name.gsub(' ','-') %>"><%= columnist.full_name %></a></li>
-                                        <% end %>
-                                    </ul></li>   
-                                <% end %>
-
-                                <% if request.path == "/comunity" %>
-                                <li class="current"><a href="/comunity">Comunidad</a></li>
-                           <% else %>
-                                <li class=""><a href="/comunity">Comunidad</a></li>   
-                           <% end %>
-
-                                <% if request.path == "/contacto" %>
-                                     <li class="current"><a href="/contacto">Contacto</a></li>
-                                <% else %>
-                                     <li class=""><a href="/contacto">Contacto</a></li>   
-                                <% end %>
-                 
-                            </ul>
-                        </div>
-                    </nav><!-- Main Menu End-->
-                </div>
-                
+                                    <% end %>
+                                </ul>
+                            </li>
+                            <li class="<%= 'current' if request.path == '/comunity' %>"><a href="/comunity">Comunidad</a></li>
+                            <li class="<%= 'current' if request.path == '/contacto' %>"><a href="/contacto">Contacto</a></li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
         </div>
-        <!--End Sticky Header-->
+        <!-- End Sticky Header -->
+        
     
     </header>
     <!--End Header Style Two -->
@@ -281,9 +170,12 @@
         
         <!-- Hidden Bar Wrapper -->
         <div class="hidden-bar-wrapper">
-            <div class="logo">
-              <a href="/"><img src="/landing/images/mobile-logo_transparent.png" alt="" /></a>
-            </div>
+        <div class="logo" style="display: flex; align-items: center;">
+        <a href="/" style="display: block;">
+          <img src="/logo_transparent.png" alt="Logo" style="width: 300px; height: 100px;" />
+        </a>
+      </div>
+      
             <!-- .Side-menu -->
             <div class="side-menu">
               <!--navigation-->

@@ -173,3 +173,7 @@ end
 
 	
 end
+def columnistas
+	@columnistas = Columnist.all
+  end
+  
